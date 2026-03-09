@@ -23,7 +23,7 @@ export default function PhotoGallery({ images }: Props) {
         {allImages.map((img, i) => (
           <div
             key={`${img}-${i}`}
-            className="w-[260px] md:w-[320px] h-[160px] md:h-[200px] flex-shrink-0 rounded-xl overflow-hidden"
+            className="w-[260px] md:w-[320px] h-[160px] md:h-[200px] flex-shrink-0 overflow-hidden"
           >
             <img
               src={`${basePath}/images/${img}`}

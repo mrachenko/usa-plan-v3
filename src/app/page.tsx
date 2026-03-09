@@ -1,7 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import DaySection from '@/components/DaySection';
 import day0 from '@/data/days/day0';
 import day1 from '@/data/days/day1';
@@ -15,51 +14,25 @@ import day8 from '@/data/days/day8';
 import day9 from '@/data/days/day9';
 import day10 from '@/data/days/day10';
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
-function RegionHeader({ label, emoji, title, color, description, image }: {
-  label: string; emoji: string; title: string; color: string; description: string; image: string;
+function RegionHeader({ label, emoji, title, color, description }: {
+  label: string; emoji: string; title: string; color: string; description: string;
 }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
-
   return (
-    <div
-      ref={ref}
-      className="relative h-[300px] md:h-[380px] overflow-hidden -mx-4 md:-mx-8 mb-10 scroll-mt-4"
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="pt-16 pb-8"
     >
-      <motion.div
-        className="absolute inset-[-15%] bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${basePath}/images/${image})`,
-          y: bgY,
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/20" />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="absolute bottom-0 left-0 right-0 p-6 md:p-8"
-      >
-        <p
-          className="text-xs tracking-[0.3em] uppercase mb-2"
-          style={{ color: `${color}cc` }}
-        >
-          {label}
-        </p>
-        <h2 className="font-display text-4xl md:text-5xl font-bold">
-          {emoji} <span style={{ color }}>{title}</span>
-        </h2>
-        <p className="text-muted mt-3 leading-relaxed max-w-2xl text-sm md:text-base">
-          {description}
-        </p>
-      </motion.div>
-    </div>
+      <p className="text-xs tracking-[0.3em] uppercase mb-2" style={{ color: `${color}99` }}>
+        {label}
+      </p>
+      <h2 className="font-display text-4xl md:text-5xl font-bold">
+        {emoji} <span style={{ color }}>{title}</span>
+      </h2>
+      <p className="text-muted mt-4 leading-relaxed max-w-2xl">{description}</p>
+    </motion.div>
   );
 }
 
@@ -126,7 +99,7 @@ export default function Home() {
           title="Перелёт"
           color="#c8c0b4"
           description="Краснодар → Ереван → Стамбул → Нью-Йорк. Транзитная ночь в Ереване."
-          image="region-transit.jpg"
+
         />
         <DaySection config={day0} />
 
@@ -137,7 +110,7 @@ export default function Home() {
           title="Нью-Йорк"
           color="#e8c87a"
           description="Четыре дня в городе, который никогда не спит. Пешком через мосты, музеи, лучшие рестораны мира и бродвейские мюзиклы."
-          image="parallax-nyc-skyline.jpg"
+
         />
         <DaySection config={day1} />
         <Divider />
@@ -154,7 +127,7 @@ export default function Home() {
           title="Нью-Йорк → Вегас"
           color="#c8c0b4"
           description="Последнее утро в Нью-Йорке, перелёт через всю страну, и вечер в Лас-Вегасе с Cirque du Soleil."
-          image="parallax-desert-road.jpg"
+
         />
         <DaySection config={day5} />
 
@@ -165,7 +138,7 @@ export default function Home() {
           title="Нацпарки"
           color="#e07040"
           description="Пять дней через юго-запад: Zion, Monument Valley, Grand Canyon и Route 66. На машине через пустыни, каньоны и старую Америку."
-          image="parallax-canyon.jpg"
+
         />
         <DaySection config={day6} />
         <Divider />
