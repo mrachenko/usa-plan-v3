@@ -14,17 +14,48 @@ function mapsUrl(stop: Stop) {
   return `https://www.google.com/maps/search/?api=1&query=${stop.pos.lat},${stop.pos.lng}`;
 }
 
+const TYPE_ICONS: Record<string, string> = {
+  flight: '✈️',
+  drive: '🚗',
+  ferry: '⛴️',
+  shuttle: '🚌',
+  hotel: '🏨',
+  nature: '🌿',
+  gold: '⭐',
+  food: '🍽️',
+};
+
+const TYPE_GRADIENTS: Record<string, string> = {
+  flight: 'from-red-900/40 to-orange-900/20',
+  drive: 'from-slate-800/60 to-slate-700/30',
+  ferry: 'from-blue-900/40 to-cyan-900/20',
+  shuttle: 'from-slate-800/40 to-slate-700/20',
+  hotel: 'from-green-900/30 to-emerald-900/15',
+  nature: 'from-emerald-900/40 to-green-900/20',
+  gold: 'from-yellow-900/30 to-amber-900/15',
+  food: 'from-orange-900/30 to-amber-900/15',
+};
+
 function StopCard({ stop, onClose }: { stop: Stop; onClose: () => void }) {
   return (
     <>
-      {stop.image && (
+      {stop.image ? (
         <div className="h-44 md:h-56 bg-white/5 overflow-hidden relative flex-shrink-0">
           <img
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/${stop.image}`}
             alt={stop.title}
             className="w-full h-full object-cover"
           />
-          {/* Close button over image */}
+          <button
+            onClick={onClose}
+            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-black/70 transition-colors text-sm"
+          >
+            ✕
+          </button>
+        </div>
+      ) : (
+        <div className={`h-28 md:h-36 bg-gradient-to-br ${TYPE_GRADIENTS[stop.type] || 'from-white/5 to-white/[0.02]'} overflow-hidden relative flex-shrink-0 flex items-center justify-center`}>
+          <span className="text-5xl md:text-6xl opacity-60">{TYPE_ICONS[stop.type] || '📍'}</span>
           <button
             onClick={onClose}
             className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-black/70 transition-colors text-sm"

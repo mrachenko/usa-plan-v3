@@ -2,6 +2,12 @@
 
 import { motion } from 'framer-motion';
 import DaySection from '@/components/DaySection';
+import StickyNav from '@/components/StickyNav';
+import OverviewMap from '@/components/OverviewMap';
+import HotelTable from '@/components/HotelTable';
+import BookingTable from '@/components/BookingTable';
+import BudgetTable from '@/components/BudgetTable';
+import { hotelsByRegion } from '@/data/hotels';
 import day0 from '@/data/days/day0';
 import day1 from '@/data/days/day1';
 import day2 from '@/data/days/day2';
@@ -47,9 +53,15 @@ function RegionHeader({ label, emoji, title, color, description }: {
 
 const Divider = () => <div className="border-t border-white/5 my-4" />;
 
+const ALL_DAYS = [day0, day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14, day15, day16, day17, day18, day19];
+
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <StickyNav
+        days={ALL_DAYS.map(d => ({ dayNumber: d.dayNumber, title: d.title, region: d.region }))}
+      />
+
       {/* Hero */}
       <section className="h-screen flex flex-col items-center justify-center relative overflow-hidden">
         <div
@@ -82,11 +94,13 @@ export default function Home() {
           >
             21 день · 7 городов · 2 океана
           </motion.p>
+          <OverviewMap />
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="mt-16"
+            transition={{ delay: 1.8 }}
+            className="mt-8"
           >
             <motion.div
               animate={{ y: [0, 8, 0] }}
@@ -121,6 +135,9 @@ export default function Home() {
           description="Четыре дня в городе, который никогда не спит. Пешком через мосты, музеи, лучшие рестораны мира и бродвейские мюзиклы."
 
         />
+        {hotelsByRegion['new-york'] && (
+          <HotelTable hotels={hotelsByRegion['new-york'].hotels} regionColor="#e8c87a" />
+        )}
         <DaySection config={day1} />
         <Divider />
         <DaySection config={day2} />
@@ -149,6 +166,15 @@ export default function Home() {
           description="Пять дней через юго-запад: Zion, Monument Valley, Grand Canyon и Route 66. На машине через пустыни, каньоны и старую Америку."
 
         />
+        <HotelTable
+          hotels={[
+            ...hotelsByRegion['vegas'].hotels,
+            ...hotelsByRegion['zion'].hotels,
+            ...hotelsByRegion['monument-valley'].hotels,
+            ...hotelsByRegion['grand-canyon'].hotels,
+          ]}
+          regionColor="#e07040"
+        />
         <DaySection config={day6} />
         <Divider />
         <DaySection config={day7} />
@@ -167,6 +193,7 @@ export default function Home() {
           color="#64b4ff"
           description="Три дня на западном побережье: Hollywood, Griffith Observatory, пляжи Малибу, Getty Center с Ван Гогом, Venice Beach и корейский BBQ."
         />
+        <HotelTable hotels={hotelsByRegion['los-angeles'].hotels} regionColor="#64b4ff" />
         <DaySection config={day11} />
         <Divider />
         <DaySection config={day12} />
@@ -181,6 +208,7 @@ export default function Home() {
           color="#40c8a0"
           description="Четыре дня на Гавайях: рассвет над облаками на вулкане Haleakala, Road to Hana с 620 поворотами, чёрный пляж, снорклинг в кратере Molokini и Mama's Fish House."
         />
+        <HotelTable hotels={hotelsByRegion['maui'].hotels} regionColor="#40c8a0" />
         <DaySection config={day14} />
         <Divider />
         <DaySection config={day15} />
@@ -201,7 +229,37 @@ export default function Home() {
         <Divider />
         <DaySection config={day19} />
 
-        <div className="h-32" />
+        {/* Booking & Budget */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="pt-16 pb-8"
+        >
+          <p className="text-xs tracking-[0.3em] uppercase mb-2 text-gold/60">Подготовка</p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold">
+            📋 <span className="text-gold">Что бронировать</span>
+          </h2>
+        </motion.div>
+        <BookingTable />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="pt-16 pb-8"
+        >
+          <p className="text-xs tracking-[0.3em] uppercase mb-2 text-gold/60">Финансы</p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold">
+            💰 <span className="text-gold">Бюджет</span>
+          </h2>
+        </motion.div>
+        <BudgetTable />
+
+        {/* Footer with version */}
+        <div className="h-32 flex items-end justify-center pb-6">
+          <p className="text-[10px] text-muted-dark/40 tracking-wider">v2.1</p>
+        </div>
       </div>
     </main>
   );
