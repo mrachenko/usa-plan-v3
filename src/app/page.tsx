@@ -13,6 +13,15 @@ import day7 from '@/data/days/day7';
 import day8 from '@/data/days/day8';
 import day9 from '@/data/days/day9';
 import day10 from '@/data/days/day10';
+import day11 from '@/data/days/day11';
+import day12 from '@/data/days/day12';
+import day13 from '@/data/days/day13';
+import day14 from '@/data/days/day14';
+import day15 from '@/data/days/day15';
+import day16 from '@/data/days/day16';
+import day17 from '@/data/days/day17';
+import day18 from '@/data/days/day18';
+import day19 from '@/data/days/day19';
 
 
 function RegionHeader({ label, emoji, title, color, description }: {
@@ -150,11 +159,48 @@ export default function Home() {
         <Divider />
         <DaySection config={day10} />
 
-        {/* Separator */}
+        {/* Days 11-13 — Los Angeles */}
+        <RegionHeader
+          label="Дни 11–13"
+          emoji="🌴"
+          title="Лос-Анджелес"
+          color="#64b4ff"
+          description="Три дня на западном побережье: Hollywood, Griffith Observatory, пляжи Малибу, Getty Center с Ван Гогом, Venice Beach и корейский BBQ."
+        />
+        <DaySection config={day11} />
         <Divider />
-        <p className="text-center text-muted-dark text-sm py-8">
-          Дни 11–19 · скоро
-        </p>
+        <DaySection config={day12} />
+        <Divider />
+        <DaySection config={day13} />
+
+        {/* Day 14-17 — Maui */}
+        <RegionHeader
+          label="Дни 14–17"
+          emoji="🌺"
+          title="Мауи"
+          color="#40c8a0"
+          description="Четыре дня на Гавайях: рассвет над облаками на вулкане Haleakala, Road to Hana с 620 поворотами, чёрный пляж, снорклинг в кратере Molokini и Mama's Fish House."
+        />
+        <DaySection config={day14} />
+        <Divider />
+        <DaySection config={day15} />
+        <Divider />
+        <DaySection config={day16} />
+        <Divider />
+        <DaySection config={day17} />
+
+        {/* Days 18-19 — Return */}
+        <RegionHeader
+          label="Дни 18–19"
+          emoji="✈️"
+          title="Возвращение"
+          color="#c8c0b4"
+          description="Последнее утро на Мауи, перелёт в LA, Universal Studios и ночной рейс домой через Атлантику."
+        />
+        <DaySection config={day18} />
+        <Divider />
+        <DaySection config={day19} />
+
         <div className="h-32" />
       </div>
     </main>
