@@ -107,22 +107,15 @@ function MapContent({ config, onStopClick, activeStop }: Props) {
           (result, status) => {
             if (status === 'OK' && result) {
               if (route.mode === 'taxi') {
-                // Taxi: dashed yellow line following roads
+                // Taxi: solid bright yellow line
                 const renderer = new google.maps.DirectionsRenderer({
                   map,
                   directions: result,
                   suppressMarkers: true,
                   polylineOptions: {
-                    strokeColor: style.color,
-                    strokeOpacity: 0,
-                    strokeWeight: 0,
-                    icons: [
-                      {
-                        icon: { path: 'M 0,-1 0,1', strokeOpacity: 0.85, strokeColor: style.color, scale: 3 },
-                        offset: '0',
-                        repeat: '12px',
-                      },
-                    ],
+                    strokeColor: '#f5e642',
+                    strokeOpacity: 0.9,
+                    strokeWeight: 4,
                   },
                 });
                 renderersRef.current.push(renderer);
