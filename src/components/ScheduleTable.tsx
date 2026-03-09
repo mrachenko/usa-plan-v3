@@ -42,35 +42,6 @@ export default function ScheduleTable({ stops, routes, onStopClick, activeStop }
 
   stops.forEach((stop, i) => {
     const route = routeFromStop.get(i);
-    const showTransport = route && route.mode !== prevMode;
-
-    if (showTransport) {
-      const style = ROUTE_STYLES[route.mode];
-      rows.push(
-        <tr key={`transport-${i}`} className="border-b border-white/5">
-          <td colSpan={4} className="py-1.5 px-3">
-            <div className="flex items-center gap-2 pl-4">
-              <svg width="20" height="6" className="flex-shrink-0">
-                <line
-                  x1="0" y1="3" x2="20" y2="3"
-                  stroke={style.color}
-                  strokeWidth="2"
-                  strokeDasharray={style.dashed ? '4 3' : route.mode === 'walking' ? '2 3' : 'none'}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span className="text-[10px] text-muted-dark tracking-wide">
-                {MODE_ICONS[route.mode]} {MODE_LABELS[route.mode]}
-              </span>
-            </div>
-          </td>
-        </tr>
-      );
-    }
-
-    if (route) {
-      prevMode = route.mode;
-    }
 
     rows.push(
       <motion.tr
@@ -107,6 +78,35 @@ export default function ScheduleTable({ stops, routes, onStopClick, activeStop }
         </td>
       </motion.tr>
     );
+
+    // Show transport indicator AFTER the stop, only when mode changes
+    if (route && route.mode !== prevMode) {
+      const style = ROUTE_STYLES[route.mode];
+      rows.push(
+        <tr key={`transport-${i}`} className="border-b border-white/5">
+          <td colSpan={4} className="py-1.5 px-3">
+            <div className="flex items-center gap-2 pl-4">
+              <svg width="20" height="6" className="flex-shrink-0">
+                <line
+                  x1="0" y1="3" x2="20" y2="3"
+                  stroke={style.color}
+                  strokeWidth="2"
+                  strokeDasharray={style.dashed ? '4 3' : route.mode === 'walking' ? '2 3' : 'none'}
+                  strokeLinecap="round"
+                />
+              </svg>
+              <span className="text-[10px] text-muted-dark tracking-wide">
+                {MODE_ICONS[route.mode]} {MODE_LABELS[route.mode]}
+              </span>
+            </div>
+          </td>
+        </tr>
+      );
+    }
+
+    if (route) {
+      prevMode = route.mode;
+    }
   });
 
   return (
