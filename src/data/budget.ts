@@ -8,39 +8,39 @@ export interface BudgetItem {
 export const budgetItems: BudgetItem[] = [
   {
     category: 'Авиабилеты',
-    amount: 3200,
-    note: 'KRR↔JFK, JFK→LAS, LAX↔OGG, LAX→домой',
+    amount: 3500,
+    note: 'KRR→EVN→JFK, JFK→LAS, LAX↔OGG, LAX→IST→KRR — на двоих',
   },
   {
     category: 'Отели (20 ночей)',
-    amount: 3260,
-    note: 'средняя ~$163/ночь',
+    amount: 5000,
+    note: 'средняя ~$250/ночь (рекомендуемые варианты)',
   },
   {
-    category: 'Аренда авто',
-    amount: 1100,
-    note: 'Вегас→LA 5 дней + Мауи 4 дня + бензин',
+    category: 'Аренда авто + бензин',
+    amount: 1200,
+    note: 'Вегас→LA 5 дней + Мауи 4 дня + бензин ~$150',
   },
   {
     category: 'Еда и рестораны',
-    amount: 2000,
-    note: '$50/день на двоих',
+    amount: 2200,
+    note: '~$110/день на двоих, от завтраков до ресторанов',
   },
   {
-    category: 'Развлечения',
-    amount: 800,
-    note: 'Cirque, Universal, туры, парки',
+    category: 'Развлечения и билеты',
+    amount: 2100,
+    note: 'Universal, Cirque, Lion King, Molokini, Antelope Canyon, парки',
   },
   {
     category: 'Транспорт в городах',
-    amount: 400,
-    note: 'метро, Uber, паромы',
+    amount: 500,
+    note: 'метро NYC, Uber, такси, паромы',
   },
 ];
 
 export const budgetTotal: BudgetItem = {
   category: 'Итого',
-  amount: 10760,
+  amount: 14500,
   note: '',
   isTotal: true,
 };

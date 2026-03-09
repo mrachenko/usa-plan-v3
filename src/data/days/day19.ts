@@ -51,7 +51,7 @@ const day19: DayConfig = {
       tip: 'Идите сюда первым делом — к 11:00 очередь на Forbidden Journey 60+ минут. С Express Pass — 5-10 минут. Купите сливочное пиво (butterbeer) — холодное или замороженное.',
       rating: '⭐4.9',
       image: 'wizarding-world-hogwarts.jpg',
-      price: 'включено',
+      price: '$109–159 + Express $189–309',
       pos: { lat: 34.1381, lng: -118.3534 },
     },
     {
