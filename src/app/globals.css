@@ -8,11 +8,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Infinite scroll gallery */
-@keyframes gallery-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
 
 body {
   background: #0d0d0d;

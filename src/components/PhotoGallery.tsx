@@ -1,5 +1,7 @@
 'use client';
 
+import { useRef, useEffect, useState } from 'react';
+
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 interface Props {
@@ -9,16 +11,40 @@ interface Props {
 export default function PhotoGallery({ images }: Props) {
   if (images.length === 0) return null;
 
-  // Duplicate images for seamless infinite scroll
-  const allImages = [...images, ...images];
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+  const speed = 0.5; // px per frame
+
+  useEffect(() => {
+    let raf: number;
+    let current = 0;
+
+    const animate = () => {
+      current += speed;
+      const el = scrollRef.current;
+      if (el) {
+        // Half width = one set of images
+        const halfWidth = el.scrollWidth / 2;
+        if (current >= halfWidth) {
+          current -= halfWidth;
+        }
+        el.style.transform = `translateX(-${current}px)`;
+      }
+      raf = requestAnimationFrame(animate);
+    };
+
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  // Triple the images for seamless wrapping
+  const allImages = [...images, ...images, ...images];
 
   return (
     <div className="overflow-hidden mb-8 -mx-4 md:mx-0">
       <div
-        className="flex gap-3 w-max"
-        style={{
-          animation: `gallery-scroll ${images.length * 6}s linear infinite`,
-        }}
+        ref={scrollRef}
+        className="flex gap-3 w-max will-change-transform"
       >
         {allImages.map((img, i) => (
           <div
