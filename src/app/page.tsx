@@ -9,7 +9,11 @@ export default function Home() {
     <main className="min-h-screen">
       {/* Hero */}
       <section className="h-screen flex flex-col items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-surface/50 via-bg to-bg" />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/usa-plan/images/hero.jpg)' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/60 via-bg/40 to-bg" />
         <div className="relative z-10 text-center px-6">
           <motion.p
             initial={{ opacity: 0, y: 20 }}

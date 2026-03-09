@@ -31,7 +31,7 @@ export default function StopPopup({ stop, onClose }: Props) {
               {stop.image && (
                 <div className="h-48 bg-white/5 overflow-hidden">
                   <img
-                    src={`/images/${stop.image}`}
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/${stop.image}`}
                     alt={stop.title}
                     className="w-full h-full object-cover"
                   />
