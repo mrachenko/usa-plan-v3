@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import DaySection from '@/components/DaySection';
 import day0 from '@/data/days/day0';
 import day1 from '@/data/days/day1';
@@ -14,30 +15,80 @@ import day8 from '@/data/days/day8';
 import day9 from '@/data/days/day9';
 import day10 from '@/data/days/day10';
 
-function RegionHeader({ label, emoji, title, color, description }: {
-  label: string; emoji: string; title: string; color: string; description: string;
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
+function RegionHeader({ label, emoji, title, color, description, image }: {
+  label: string; emoji: string; title: string; color: string; description: string; image: string;
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className="pt-8 pb-8 scroll-mt-4"
+      className="relative h-[280px] md:h-[340px] flex items-end overflow-hidden rounded-2xl mb-10 scroll-mt-4"
       style={{ scrollSnapAlign: 'start' }}
     >
-      <p className="text-xs tracking-[0.3em] uppercase mb-2" style={{ color: `${color}99` }}>
-        {label}
-      </p>
-      <h2 className="font-display text-4xl md:text-5xl font-bold">
-        {emoji} <span style={{ color }}>{title}</span>
-      </h2>
-      <p className="text-muted mt-4 leading-relaxed max-w-2xl">{description}</p>
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
+        style={{ backgroundImage: `url(${basePath}/images/${image})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent" />
+      <div className="relative z-10 p-6 md:p-8 w-full">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-xs tracking-[0.3em] uppercase mb-2"
+          style={{ color: `${color}cc` }}
+        >
+          {label}
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="font-display text-4xl md:text-5xl font-bold"
+        >
+          {emoji} <span style={{ color }}>{title}</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-muted mt-3 leading-relaxed max-w-2xl text-sm md:text-base"
+        >
+          {description}
+        </motion.p>
+      </div>
     </motion.div>
   );
 }
 
+function ParallaxDivider({ image, alt }: { image: string; alt?: string }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ['-15%', '15%']);
+
+  return (
+    <div ref={ref} className="relative h-[200px] md:h-[300px] overflow-hidden my-4 -mx-4 md:-mx-8">
+      <motion.div
+        className="absolute inset-[-20%] bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${basePath}/images/${image})`,
+          y,
+        }}
+      />
+      <div className="absolute inset-0 bg-bg/40" />
+    </div>
+  );
+}
+
 const Divider = () => <div className="border-t border-white/5 my-4" />;
-const SectionDivider = () => <div className="border-t border-white/5 my-8" />;
 
 export default function Home() {
   return (
@@ -100,10 +151,11 @@ export default function Home() {
           title="Перелёт"
           color="#c8c0b4"
           description="Краснодар → Ереван → Стамбул → Нью-Йорк. Транзитная ночь в Ереване."
+          image="region-transit.jpg"
         />
         <DaySection config={day0} />
 
-        <SectionDivider />
+        <ParallaxDivider image="parallax-nyc-skyline.jpg" />
 
         {/* Days 1-4 — New York */}
         <RegionHeader
@@ -112,6 +164,7 @@ export default function Home() {
           title="Нью-Йорк"
           color="#e8c87a"
           description="Четыре дня в городе, который никогда не спит. Пешком через мосты, музеи, лучшие рестораны мира и бродвейские мюзиклы."
+          image="region-new-york.jpg"
         />
         <DaySection config={day1} />
         <Divider />
@@ -121,7 +174,7 @@ export default function Home() {
         <Divider />
         <DaySection config={day4} />
 
-        <SectionDivider />
+        <ParallaxDivider image="parallax-desert-road.jpg" />
 
         {/* Day 5 — Transit NY → Vegas */}
         <RegionHeader
@@ -130,10 +183,11 @@ export default function Home() {
           title="Нью-Йорк → Вегас"
           color="#c8c0b4"
           description="Последнее утро в Нью-Йорке, перелёт через всю страну, и вечер в Лас-Вегасе с Cirque du Soleil."
+          image="region-transit.jpg"
         />
         <DaySection config={day5} />
 
-        <SectionDivider />
+        <ParallaxDivider image="parallax-canyon.jpg" />
 
         {/* Days 6-10 — Vegas + National Parks */}
         <RegionHeader
@@ -142,6 +196,7 @@ export default function Home() {
           title="Нацпарки"
           color="#e07040"
           description="Пять дней через юго-запад: Zion, Monument Valley, Grand Canyon и Route 66. На машине через пустыни, каньоны и старую Америку."
+          image="region-vegas-parks.jpg"
         />
         <DaySection config={day6} />
         <Divider />
@@ -154,8 +209,8 @@ export default function Home() {
         <DaySection config={day10} />
 
         {/* Separator */}
-        <SectionDivider />
-        <p className="text-center text-muted-dark text-sm">
+        <Divider />
+        <p className="text-center text-muted-dark text-sm py-8">
           Дни 11–19 · скоро
         </p>
         <div className="h-32" />
