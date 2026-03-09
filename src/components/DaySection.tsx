@@ -118,7 +118,7 @@ export default function DaySection({ config }: Props) {
       </div>
 
       {/* Schedule table */}
-      <div className="mb-8 bg-white/[0.02] border border-white/5 rounded-xl overflow-hidden">
+      <div className="mb-8 bg-white/[0.02] border border-white/5 rounded-xl overflow-hidden -mx-4 md:mx-0">
         <ScheduleTable
           stops={config.stops}
           routes={config.routes}
