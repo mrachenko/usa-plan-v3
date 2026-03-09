@@ -2,6 +2,11 @@ export type StopType = 'gold' | 'food' | 'hotel' | 'ferry' | 'flight' | 'nature'
 export type RouteMode = 'walking' | 'driving' | 'ferry' | 'shuttle' | 'flight' | 'subway';
 export type Region = 'new-york' | 'vegas-parks' | 'los-angeles' | 'maui' | 'transit';
 
+/**
+ * Every stop MUST have an `image` field pointing to a photo in /public/images/.
+ * Popups are shown identically from both the schedule table and the map —
+ * all stops must have consistent data including photos.
+ */
 export interface Stop {
   id: string;
   type: StopType;
@@ -12,7 +17,7 @@ export interface Stop {
   why: string;
   tip?: string;
   rating?: string;
-  image?: string;
+  image: string;
   price: string;
   pos: { lat: number; lng: number };
 }
