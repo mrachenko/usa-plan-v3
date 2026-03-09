@@ -87,8 +87,8 @@ function MapContent({ config, onStopClick, activeStop }: Props) {
       const fromPos = config.stops[route.from].pos;
       const toPos = config.stops[route.to].pos;
 
-      if (route.mode === 'walking' || route.mode === 'driving') {
-        const travelMode = route.mode === 'walking'
+      if (route.mode === 'walking' || route.mode === 'driving' || route.mode === 'taxi') {
+        const travelMode = (route.mode === 'walking')
           ? google.maps.TravelMode.WALKING
           : google.maps.TravelMode.DRIVING;
 
@@ -106,7 +106,27 @@ function MapContent({ config, onStopClick, activeStop }: Props) {
           },
           (result, status) => {
             if (status === 'OK' && result) {
-              if (route.mode === 'walking') {
+              if (route.mode === 'taxi') {
+                // Taxi: dashed yellow line following roads
+                const renderer = new google.maps.DirectionsRenderer({
+                  map,
+                  directions: result,
+                  suppressMarkers: true,
+                  polylineOptions: {
+                    strokeColor: style.color,
+                    strokeOpacity: 0,
+                    strokeWeight: 0,
+                    icons: [
+                      {
+                        icon: { path: 'M 0,-1 0,1', strokeOpacity: 0.85, strokeColor: style.color, scale: 3 },
+                        offset: '0',
+                        repeat: '12px',
+                      },
+                    ],
+                  },
+                });
+                renderersRef.current.push(renderer);
+              } else if (route.mode === 'walking') {
                 // Walking: dotted line with walk icon
                 const renderer = new google.maps.DirectionsRenderer({
                   map,

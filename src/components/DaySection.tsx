@@ -19,6 +19,7 @@ const MODE_LABELS: Record<RouteMode, string> = {
   shuttle: '🚌 шаттл',
   flight: '✈️ перелёт',
   subway: '🚇 метро',
+  taxi: '🚕 такси',
 };
 
 function RouteLegend({ routes }: { routes: DayConfig['routes'] }) {

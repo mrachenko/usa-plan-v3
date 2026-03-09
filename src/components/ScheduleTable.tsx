@@ -10,6 +10,7 @@ const MODE_ICONS: Record<RouteMode, string> = {
   shuttle: '🚌',
   flight: '✈️',
   subway: '🚇',
+  taxi: '🚕',
 };
 
 const MODE_LABELS: Record<RouteMode, string> = {
@@ -19,6 +20,7 @@ const MODE_LABELS: Record<RouteMode, string> = {
   shuttle: 'шаттл',
   flight: 'перелёт',
   subway: 'метро',
+  taxi: 'такси',
 };
 
 interface Props {

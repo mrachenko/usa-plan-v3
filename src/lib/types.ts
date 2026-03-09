@@ -1,5 +1,5 @@
 export type StopType = 'gold' | 'food' | 'hotel' | 'ferry' | 'flight' | 'nature' | 'drive';
-export type RouteMode = 'walking' | 'driving' | 'ferry' | 'shuttle' | 'flight' | 'subway';
+export type RouteMode = 'walking' | 'driving' | 'ferry' | 'shuttle' | 'flight' | 'subway' | 'taxi';
 export type Region = 'new-york' | 'vegas-parks' | 'los-angeles' | 'maui' | 'transit';
 
 /**
@@ -72,4 +72,5 @@ export const ROUTE_STYLES: Record<RouteMode, { color: string; dashed: boolean }>
   shuttle: { color: '#90e870', dashed: true },
   flight: { color: '#ff6b6b', dashed: true },
   subway: { color: '#808080', dashed: true },
+  taxi: { color: '#f5e642', dashed: true },
 };
