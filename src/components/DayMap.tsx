@@ -252,7 +252,7 @@ function MapContent({ config, onStopClick, activeStop }: Props) {
 
 export default function DayMap({ config, onStopClick, activeStop }: Props) {
   return (
-    <div className="w-full h-[400px] md:h-[500px] rounded-none md:rounded-xl overflow-hidden border-y md:border border-white/10 -mx-4 md:mx-0">
+    <div className="w-full h-[400px] md:h-[500px] rounded-none md:rounded-xl overflow-hidden border-y md:border border-white/10">
       <APIProvider apiKey={API_KEY}>
         <Map
           defaultCenter={config.mapCenter}

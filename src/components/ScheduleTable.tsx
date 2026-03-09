@@ -111,12 +111,12 @@ export default function ScheduleTable({ stops, routes, onStopClick, activeStop }
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-sm table-fixed">
+      <table className="w-full text-sm md:table-fixed">
         <colgroup>
-          <col className="w-16" />
+          <col className="md:w-16" />
           <col />
           <col className="hidden md:table-column" />
-          <col className="w-24" />
+          <col className="md:w-24" />
         </colgroup>
         <thead>
           <tr className="border-b border-white/10 text-muted-dark text-xs uppercase tracking-wider">
