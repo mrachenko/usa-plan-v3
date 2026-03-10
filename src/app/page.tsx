@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import DaySection from '@/components/DaySection';
 import StickyNav from '@/components/StickyNav';
-import OverviewMap from '@/components/OverviewMap';
 import HotelTable from '@/components/HotelTable';
 import BookingTable from '@/components/BookingTable';
 import BudgetTable from '@/components/BudgetTable';
@@ -98,7 +97,6 @@ export default function Home() {
           >
             21 день · 7 городов · 2 океана
           </motion.p>
-          <OverviewMap />
 
           <motion.div
             initial={{ opacity: 0 }}
